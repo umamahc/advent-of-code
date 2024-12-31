@@ -39,11 +39,28 @@ def multiply_directions(new_output: list[list[str, int]]):
     return vertical*horizontal
 
 
+def calculate_aim(new_output):
+    aim = 0
+    horizontal = 0
+    vertical = 0
+    for command in new_output:
+        if command[0] == 'up':
+            aim -= command[1]
+        if command[0] == 'down':
+            aim += command[1]
+        if command[0] == 'forward':
+            horizontal += command[1]
+            vertical += (aim*command[1])
+    return horizontal*vertical
+
+
 if __name__ == '__main__':
-    test_data= ['forward 5', 'down 5',
-                'forward 8', 'up 3', 'down 8', 'forward 2']
+    test_data = ['forward 5', 'down 5',
+                 'forward 8', 'up 3', 'down 8', 'forward 2']
     filename = 'day2.txt'
     file_output = read_input(filename)
-    new_output = format_output(filename)
+    new_output = format_output(file_output)
     result = multiply_directions(new_output)
     print(result)
+
+    print(calculate_aim(new_output))
